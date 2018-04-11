@@ -1,0 +1,4 @@
+CREATE DATABASE neos;
+CREATE USER 'neos'@'localhost' IDENTIFIED BY 'n30s';
+GRANT ALL PRIVILEGES ON neos.* TO neos@localhost;
+FLUSH PRIVILEGES;
