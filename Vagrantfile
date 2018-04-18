@@ -11,9 +11,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
   	sudo rm -f /var/run/yum.pid
   	sudo yum -y update
-  	sudo yum install -y httpd24 php71 php71-mysqlnd php71-mbstring php71-pecl-imagick 
-    #install mysql
-    sudo yum install -y mysql-server
+  	sudo yum install -y httpd24 php71 php71-mysqlnd php71-mbstring php71-pecl-imagick mysql-server
     sudo service mysqld start
     mysql -uroot < /vagrant/create_db.sql
   	curl -sS https://getcomposer.org/installer | php
@@ -29,9 +27,11 @@ Vagrant.configure("2") do |config|
     sudo ./flow core:setfilepermissions root apache apache
     cp /vagrant/Settings.yaml /var/www/html/neos/Configuration/Settings.yaml
     ./flow configuration:validate
-    ./flow doctrine:create
+    ln -s /vagrant/ODIN.Accenture/ /var/www/html/neos/Packages/Sites/TS.Example
+    ./flow flow:package:rescan
+    ./flow flow:doctrine:migrate
+    ./flow site:import TS.Example
     ./flow user:create admin adm1n Admin User --roles Neos.Neos:Administrator
-    ./flow site:import --filename /var/www/html/neos/Packages/Sites/Neos.Demo/Resources/Private/Content/Sites.xml
     sudo service httpd start
     ifconfig | grep "inet "
   SHELL
