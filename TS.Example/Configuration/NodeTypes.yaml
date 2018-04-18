@@ -2,7 +2,7 @@
 # to your pages. You can add as many areas as you like, still only those that are rendered in your Fusion-code and
 # Template are visible on your page.
 ---
-#'Neos.NodeTypes:Page':
-#  childNodes:
-#    'sidebar':
-#      type: 'Neos.Neos:ContentCollection'
+'Neos.NodeTypes:Page':
+  childNodes:
+    'footer':
+      type: 'Neos.Neos:ContentCollection'

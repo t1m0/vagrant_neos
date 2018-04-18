@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
     sudo ./flow core:setfilepermissions root apache apache
     cp /vagrant/Settings.yaml /var/www/html/neos/Configuration/Settings.yaml
     ./flow configuration:validate
-    ln -s /vagrant/ODIN.Accenture/ /var/www/html/neos/Packages/Sites/TS.Example
+    ln -s /vagrant/TS.Example/ /var/www/html/neos/Packages/Sites/
     ./flow flow:package:rescan
     ./flow flow:doctrine:migrate
     ./flow site:import TS.Example

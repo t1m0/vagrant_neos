@@ -1,0 +1,21 @@
+'TS.Example:CustomPage':
+  superTypes:
+    'Neos.Neos:Document': TRUE
+  childNodes:
+    'main':
+      type: 'Neos.Neos:ContentCollection'
+  ui:
+    label: CustomPage
+    icon: icon-cubes
+    inspector:
+      groups:
+        custompage:
+          label: CustomPage
+  properties:
+    title:
+      type: string
+      ui:
+        label: 'Title'
+        inlineEditable: true
+        aloha:
+          placeholder: 'The Title'

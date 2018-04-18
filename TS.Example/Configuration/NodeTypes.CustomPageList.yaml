@@ -1,0 +1,5 @@
+'TS.Example:CustomPageList':
+  superTypes:
+    'Neos.Neos:Content': TRUE
+  ui:
+    label: 'Custom Page List'
