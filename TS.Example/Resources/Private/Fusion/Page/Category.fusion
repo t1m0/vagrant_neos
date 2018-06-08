@@ -1,0 +1,14 @@
+prototype(TS.Example:Category.Document) < prototype(Neos.NodeTypes:Page.Document) {
+    head {
+        
+    }
+
+    body {
+		content {
+			// The default content section
+			main = TS.Example:Category {
+				nodePath = 'main'
+			}
+		}
+    }
+}

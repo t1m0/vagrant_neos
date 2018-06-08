@@ -1,0 +1,10 @@
+prototype(TS.Example:Post.Document) < prototype(Neos.NodeTypes:Page.Document) {
+    head {
+        
+    }
+
+    body {
+
+    }
+}
+

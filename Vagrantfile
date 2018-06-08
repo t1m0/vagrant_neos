@@ -2,21 +2,29 @@
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
   config.vm.box = "mvbcoding/awslinux"
-  #config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.vm.network "private_network", type: "dhcp"
+  config.vm.network "forwarded_port", guest: 80, host: 8080
+  #config.vm.network "private_network", type: "dhcp"
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
     v.cpus = 1
   end
   config.vm.provision "shell", inline: <<-SHELL
-  	sudo rm -f /var/run/yum.pid
-  	sudo yum -y update
-  	sudo yum install -y httpd24 php71 php71-mysqlnd php71-mbstring php71-pecl-imagick mysql-server
+    sudo rm -f /var/run/yum.pid
+    #sudo yum -y update
+    wget http://dev.mysql.com/get/mysql57-community-release-el6-7.noarch.rpm
+    sudo yum -y localinstall mysql57-community-release-el6-7.noarch.rpm
+    sudo yum -y install httpd24 php71 php71-mysqlnd php71-mbstring php71-pecl-imagick mysql-community-server
     sudo service mysqld start
-    mysql -uroot < /vagrant/create_db.sql
-  	curl -sS https://getcomposer.org/installer | php
-  	sudo mv composer.phar /usr/bin/composer
-  	sudo usermod -a -G apache vagrant 
+    grep -oP -- '(?=root@localhost:\s).*' /var/log/mysqld.log >>  pass.txt
+    sed -i 's/root@localhost: //g'  pass.txt
+    export DBPWD=$(cat pass.txt)
+    sudo cp /vagrant/my.cnf /etc/my.cnf
+    sudo service mysqld restart
+    mysqladmin -u root -p$DBPWD password 'TimoTest!'
+    mysql -uroot -pTimoTest! < /vagrant/create_db.sql
+    curl -sS https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/bin/composer
+    sudo usermod -a -G apache vagrant 
     sudo chown -R vagrant:apache /var/www
     sudo chmod -R 2775 /var/www
     cd /var/www/html
@@ -33,6 +41,5 @@ Vagrant.configure("2") do |config|
     ./flow site:import TS.Example
     ./flow user:create admin adm1n Admin User --roles Neos.Neos:Administrator
     sudo service httpd start
-    ifconfig | grep "inet "
   SHELL
 end

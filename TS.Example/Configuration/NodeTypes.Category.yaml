@@ -1,16 +1,16 @@
-'TS.Example:CustomPage':
+'TS.Example:Category':
   superTypes:
     'Neos.Neos:Document': TRUE
   childNodes:
     'main':
       type: 'Neos.Neos:ContentCollection'
   ui:
-    label: CustomPage
+    label: Category
     icon: icon-cubes
     inspector:
       groups:
-        custompage:
-          label: CustomPage
+        category:
+          label: Category
   properties:
     title:
       type: string

@@ -1,0 +1,36 @@
+'TS.Example:Post':
+  superTypes:
+    'Neos.Neos:Document': TRUE
+  childNodes:
+    'main':
+      type: 'Neos.Neos:ContentCollection'
+  ui:
+    label: Post
+    icon: icon-cube
+    inspector:
+      groups:
+        post:
+          label: Post
+  properties:
+    title:
+      type: string
+      ui:
+        label: 'Title'
+        inlineEditable: true
+        aloha:
+          placeholder: 'The Title'
+    content:
+      type: 'Neos.Neos:ContentCollection'
+      ui:
+        label: 'Content'
+        inlineEditable: true
+        aloha:
+          placeholder: 'The Content'
+    categories:
+      type: references
+      ui:
+        label: 'Categories'
+        inspector:
+          group: 'category'
+          editorOptions:
+            nodeTypes: ['TS.Example:Category']

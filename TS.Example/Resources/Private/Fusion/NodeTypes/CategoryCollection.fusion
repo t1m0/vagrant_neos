@@ -1,0 +1,12 @@
+prototype(TS.Example:CategoryCollection) < prototype(Neos.Neos:Content) {
+	templatePath = 'resource://TS.Example/Private/Templates/NodeTypes/CategoryCollection.html'
+	
+	posts = Neos.Fusion:Collection {
+        collection = ${q(site).find('[instanceof TS.Example:Post]').get()} 
+        itemName = 'post'
+        itemRenderer = ${'<li>'+q(post).property('title')+'</li>'}
+    }
+}
+
+//[categories = "' + node + '"]
+//itemRenderer = ${'<li>'+q(post).property('uriPathSegment')+'|'+q(post).property('route')+'</li>'}

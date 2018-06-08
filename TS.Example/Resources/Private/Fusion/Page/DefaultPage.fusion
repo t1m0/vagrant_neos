@@ -1,0 +1,18 @@
+prototype(TS.Example:Page.Document) < prototype(Neos.Neos:Page) {
+
+    body {
+    	title = ${q(node).property('title')}
+		templatePath = 'resource://TS.Example/Private/Templates/Page/Default.html'
+		sectionName = 'body'
+		parts {
+			menu = Neos.Neos:Menu
+		}
+
+		content {
+			main = Neos.Neos:PrimaryContent {
+				nodePath = 'main'
+			}
+		}
+	}
+
+}
